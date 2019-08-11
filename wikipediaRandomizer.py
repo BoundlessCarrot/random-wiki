@@ -27,11 +27,22 @@ def picCollector(page):
 	for link in imageLinks:
 		print(link)
 
+def pageExpander(page):
+	print(page.content)
+
 def decision(page): #purely for navigating in the terminal, should have no use wthin a UI
-	inp = input("\n'next' for a new page, 'links' for links on this page, 'pics' for pictures on this page, 'q' to exit: ")
+	inp = input("\n'next' for a new page, 'full' to show the full page, 'links' for links on this page, 'pics' for pictures on this page, 'q' to exit: ")
 	if 'next' in inp.casefold():
 		print()
+		print('----------------------------')
+		print()
 		printer()
+	elif 'full' in inp.casefold():
+		print()
+		print('----------------------------')
+		print()
+		pageExpander(page)
+		decision(page)
 	elif 'links' in inp.casefold():
 		print()
 		linkCollector(page)
