@@ -28,6 +28,8 @@ def picCollector(page):
 		print(link)
 
 def pageExpander(page):
+	print(page.title)
+	print()
 	print(page.content)
 
 def decision(page): #purely for navigating in the terminal, should have no use wthin a UI
