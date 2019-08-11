@@ -4,22 +4,22 @@
 #test url 2: https://en.wikipedia.org/wiki/Stack_Overflow
 
 import wikipedia as wiki
-import requests
-from bs4 import BeautifulSoup as bs
+#import requests
+#from bs4 import BeautifulSoup as bs
 
-def opener():
-	wikiPage = requests.get('https://en.wikipedia.org/wiki/Special:Random')
-	
-	try:
-		assert (wikiPage.status_code == 200)
-	except AssertionError:
-		return "Link is not accessible"
-	
-	raw = wikiPage.content
-	wikiSoup = bs(raw, 'lxml')
-	
-	pageData = wikiSoup.title.string
-	return pageData
+#def opener():
+#	wikiPage = requests.get('https://en.wikipedia.org/wiki/Special:Random')
+#	
+#	try:
+#		assert (wikiPage.status_code == 200)
+#	except AssertionError:
+#		return "Link is not accessible"
+#	
+#	raw = wikiPage.content
+#	wikiSoup = bs(raw, 'lxml')
+#	
+#	pageData = wikiSoup.title.string
+#	return pageData
 		
 def printer():
 #	pagedata = opener()
