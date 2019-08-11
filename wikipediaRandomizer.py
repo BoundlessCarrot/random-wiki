@@ -4,36 +4,16 @@
 #test url 2: https://en.wikipedia.org/wiki/Stack_Overflow
 
 import wikipedia as wiki
-#import requests
-#from bs4 import BeautifulSoup as bs
 
-#def opener():
-#	wikiPage = requests.get('https://en.wikipedia.org/wiki/Special:Random')
-#	
-#	try:
-#		assert (wikiPage.status_code == 200)
-#	except AssertionError:
-#		return "Link is not accessible"
-#	
-#	raw = wikiPage.content
-#	wikiSoup = bs(raw, 'lxml')
-#	
-#	pageData = wikiSoup.title.string
-#	return pageData
-		
 def printer():
-#	pagedata = opener()
-#	page = wiki.page(pagedata)
 	l = wiki.random(pages=1)
 	page = wiki.page(l)
-#	print(pagedata, page, page1)
-	try:
-		print(page.title)
-		print(page.url)
-		print()
-		print(wiki.summary(l))
-	except wikipedia.exceptions.PageError:
-		print("Something went wrong. Please try again!")
+	
+	print(page.title)
+	print(page.url)
+	print()
+	print(wiki.summary(l))
+	
 	decision(page)
 
 def linkCollector(page):
