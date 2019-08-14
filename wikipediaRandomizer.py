@@ -5,14 +5,28 @@
 
 import wikipedia as wiki
 
-def printer():
-	l = wiki.random(pages=1)
-	page = wiki.page(l)
-	
-	print(page.title)
-	print(page.url)
-	print()
-	print(wiki.summary(l))
+wikiHistory = []
+
+def printer(page=None):
+	if page == None:
+		l = wiki.random(pages=1)
+		page = wiki.page(l)
+
+		try:
+			print(page.title)
+			print(page.url)
+			print()
+			print(wiki.summary(l))
+		except wikipedia.exceptions.DisambiguationError as e:
+			print(e.options)
+	else:
+		try:
+			print(page.title)
+			print(page.url)
+			print()
+			print(wiki.summary(page))
+		except wikipedia.exceptions.DisambiguationError as e:
+			print(e.options)
 	
 	decision(page)
 
@@ -33,23 +47,35 @@ def pageExpander(page):
 	print(page.content)
 
 def decision(page): #purely for navigating in the terminal, should have no use wthin a UI
-	inp = input("\n'next' for a new page, 'full' to show the full page, 'links' for links on this page, 'pics' for pictures on this page, 'q' to exit: ")
-	if 'next' in inp.casefold():
-		print('\n----------------------------\n')
+	global wikiHistory
+	wikiHistory.append(page)
+	inp = input("\ntype 'next' for a new page, 'prev' for the previous page, 'full' to show the full page, 'links' for links on this page, 'pics' for pictures on this page, 'history' to show your complete history, 'q' to exit: ").casefold()
+	if 'next' in inp:
+		print('\n--------------------------------------------------------\n')
 		printer()
-	elif 'full' in inp.casefold():
-		print('\n----------------------------\n')
+	elif 'prev' in inp:
+		print('\n--------------------------------------------------------\n')
+		printer(wikiHistory[-2])
+		decision(page)
+	elif 'full' in inp:
+		print('\n--------------------------------------------------------\n')
 		pageExpander(page)
 		decision(page)
-	elif 'links' in inp.casefold():
+	elif 'links' in inp:
 		print()
 		linkCollector(page)
 		decision(page)
-	elif 'pics' in inp.casefold():
+	elif 'pics' in inp:
 		print()
 		picCollector(page)
 		decision(page)
-	elif 'q' in inp.casefold():
+	elif 'history' in inp:
+		print('\n--------------------------------------------------------\n')
+		for item in wikiHistory:
+			print(str(item.title) + ': ' + str(item.url))
+		print('\n--------------------------------------------------------\n')
+		decision(page)
+	elif 'q' in inp:
 		exit()
 	else:
 		print("I don't know what you're trying to say here, try again")
